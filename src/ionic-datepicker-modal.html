@@ -1,6 +1,9 @@
 <ion-modal-view class="ionic_datepicker_modal">
   <ion-header-bar ng-class="modalHeaderColor">
     <h1 class="title">{{titleLabel}}</h1>
+    <div class="buttons">
+      <ion-spinner ng-if="disableUi"></ion-spinner>
+    </div>
   </ion-header-bar>
   <ion-content class="ionic_datepicker_modal_content">
     <div class="ionic_datepicker">
@@ -53,7 +56,7 @@
           <div class="col text-center" ng-repeat="weekName in weekNames track by $index" style="font-weight: bold"> {{ weekName }}
           </div>
         </div>
-        <div>
+        <div ng-class="{'disable-ui' : disableUi}">
           <div class="row" ng-repeat="row in rows track by $index" style="text-align: center;">
             <div class="col no_padding" ng-repeat="col in cols track by $index"
                  ng-class="{'date_col': (dayList[$parent.$index * numColumns + $index].day != undefined),

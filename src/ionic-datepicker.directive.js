@@ -13,7 +13,7 @@
       restrict: 'AE',
       replace: true,
       scope: {
-        inputObj: "=inputObj"
+        inputObj: "=inputObj", onRefreshDates:"&", disableUi : "="
       },
       link: function (scope, element, attrs) {
 
@@ -36,6 +36,9 @@
 
         scope.enableDatesFrom = {epoch: 0, isSet: false};
         scope.enableDatesTo = {epoch: 0, isSet: false};
+
+        console.log("d", scope.disableUi)
+
 
         //Setting the from and to dates
         if (scope.inputObj.from) {
@@ -120,6 +123,7 @@
         };
 
         var refreshDateList = function (current_date) {
+          console.log("refreshing")
           current_date.setHours(0);
           current_date.setMinutes(0);
           current_date.setSeconds(0);
@@ -168,6 +172,14 @@
           scope.numColumns = 7;
           scope.rows.length = 6;
           scope.cols.length = scope.numColumns;
+
+          console.log("days", scope.dayList);
+          scope.onRefreshDates = scope.onRefreshDates || angular.noop;
+          console.log("calling refresh dates")
+          scope.onRefreshDates({dates:scope.dayList})
+          
+
+
         };
 
         scope.monthChanged = function (month) {
